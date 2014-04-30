@@ -404,8 +404,7 @@ class ElasticSearchCheck(NagiosCheck):
                                       "shard %d" % (idx_name, shard_no))
 
         if downgraded:
-            msg = ("One or more indexes are missing primary shards.  "
-                   "Use -vv to list them.")
+            msg = ("One or more indexes are missing primary shards.  ")
 
         # Assertion:  Each primary has replicas in STARTED state.
         downgraded = False
@@ -433,8 +432,7 @@ class ElasticSearchCheck(NagiosCheck):
                                       "shard %d" % (idx_name, shard_no))
 
         if downgraded:
-            msg = ("One or more indexes are missing replica shards.  "
-                   "Use -vv to list them.")
+            msg = ("One or more indexes are missing replica shards.  ")
 
         # Assertion:  You have as many master-eligible nodes in the 
         # cluster as you think you ought to.
@@ -509,7 +507,7 @@ class ElasticSearchCheck(NagiosCheck):
 
         if downgraded:
             msg = ("One or more index shards are not being replicated "
-                   "across failure domains.  Use -vv to list them.")
+                   "across failure domains.")
 
         # ES detected a problem that we did not.  This should never 
         # happen.  (If it does, you should work out what happened, then 
@@ -523,7 +521,7 @@ class ElasticSearchCheck(NagiosCheck):
                          perfdata)
 
         raise Status(HEALTH_MAP[self.health],
-                     (msg, None, "%s\n\n%s" % (msg, "\n".join(detail))),
+                     (msg, None, "%s %s" % (msg, " ".join(detail))),
                      perfdata)
 
     def downgrade_health(self, new_health):
